@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EcoBite — Good food. Less waste.</title>
+<style>
+:root { color-scheme: light dark; --forest: light-dark(#174b37,#b4e0bd); --forest-deep: light-dark(#103a2b,#e0f0df); --cream: light-dark(#f8f6ee,#151e19); --paper: light-dark(#fffef9,#202a24); --ink: light-dark(#20372c,#f3f3e9); --muted: light-dark(#6d7d70,#b0bdb2); --line: light-dark(#e3e8dd,#38463c); --lime: light-dark(#d7edaa,#405d3b); --shadow: 0 14px 38px rgba(26,55,36,.08); }
+* { box-sizing:border-box; }
+body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--cream); color:var(--ink); }
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+#app { min-height:100vh; width:100%; background-color:var(--cream); color:var(--ink); }
+.nav { max-width:1180px; margin:auto; padding:22px 28px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+.brand { display:flex; gap:10px; align-items:center; font-weight:850; letter-spacing:-.8px; font-size:24px; color:var(--forest); }
+.logo { width:37px; height:37px; display:grid; place-items:center; border-radius:13px; color:#f7f7e9; background:#174b37; font-size:21px; }
+.navlinks { display:flex; align-items:center; gap:28px; color:var(--muted); font-size:14px; }
+.navlinks a { text-decoration:none; color:inherit; }
+.navlinks a:hover { color:var(--forest); }
+.nav-actions { display:flex; align-items:center; gap:10px; }
+.pill { border:1px solid var(--line); border-radius:999px; padding:10px 14px; background:var(--paper); color:var(--ink); font-size:13px; font-weight:650; }
+.primary { border:0; border-radius:999px; padding:12px 18px; background:#174b37; color:#fffef4; font-weight:750; font-size:14px; transition:transform .15s, background .15s; }
+.primary:hover { background:#236648; transform:translateY(-1px); }
+.hero-wrap { max-width:1180px; margin:0 auto; padding:30px 28px 34px; }
+.hero { background:#e9efdd; color:#173e2d; border-radius:30px; padding:56px 54px; display:grid; grid-template-columns:1.1fr .9fr; gap:28px; min-height:405px; overflow:hidden; position:relative; }
+.eyebrow { display:inline-flex; align-items:center; gap:8px; border-radius:999px; background:rgba(255,255,255,.67); padding:8px 12px; font-size:11px; letter-spacing:1.15px; font-weight:800; text-transform:uppercase; }
+.dot { width:7px; height:7px; background:#3c8655; border-radius:50%; }
+h1 { font-family:Georgia, "Times New Roman", serif; font-size:clamp(44px,5.4vw,70px); line-height:.99; letter-spacing:-2.7px; margin:22px 0 18px; font-weight:600; max-width:560px; }
+.hero p { font-size:16px; line-height:1.7; color:#4f6856; max-width:440px; margin:0 0 25px; }
+.hero-buttons { display:flex; flex-wrap:wrap; align-items:center; gap:12px; }
+.hero .primary { background:#174b37; padding:14px 20px; }
+.text-btn { border:0; background:transparent; color:#24533a; font-weight:750; padding:12px; }
+.hero-art { display:flex; align-items:center; justify-content:center; min-height:275px; position:relative; }
+.art-circle { width:min(320px,80%); aspect-ratio:1; border-radius:50%; background:#d2e2bd; display:grid; place-items:center; position:relative; box-shadow:inset 0 0 0 1px rgba(23,75,55,.07); }
+.plate { width:75%; aspect-ratio:1; border-radius:50%; background:#fffaf0; box-shadow:0 18px 34px rgba(33,66,38,.14), inset 0 0 0 10px #f4ead4; display:grid; place-items:center; font-size:116px; transform:rotate(-8deg); }
+.floating { position:absolute; background:#fffef6; box-shadow:var(--shadow); border-radius:16px; padding:12px 15px; font-size:12px; font-weight:750; color:#234632; }
+.float-one { top:15%; right:0; transform:rotate(5deg); }.float-two { bottom:10%; left:0; transform:rotate(-5deg); }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; padding:25px 4px 5px; }
+.stat { display:flex; gap:12px; align-items:center; padding:8px 14px; }
+.stat-icon { width:42px; height:42px; display:grid; place-items:center; border-radius:14px; background:var(--lime); font-size:20px; }
+.stat strong { display:block; font-size:16px; letter-spacing:-.3px; }.stat span { display:block; font-size:12px; color:var(--muted); margin-top:3px; }
+.section { max-width:1180px; margin:0 auto; padding:36px 28px 62px; }
+.section-top { display:flex; justify-content:space-between; gap:24px; align-items:end; margin-bottom:23px; }
+.kicker { color:#52815c; text-transform:uppercase; letter-spacing:1.4px; font-size:11px; font-weight:850; }
+h2 { font-family:Georgia, "Times New Roman", serif; font-weight:600; font-size:clamp(30px,3.4vw,42px); letter-spacing:-1.2px; margin:8px 0 0; color:var(--forest-deep); }
+.section-sub { color:var(--muted); font-size:14px; margin:9px 0 0; line-height:1.6; }
+.searchbar { display:flex; gap:10px; align-items:center; margin-bottom:18px; }
+.searchbox { flex:1; display:flex; align-items:center; gap:10px; background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:0 15px; min-width:160px; }
+.searchbox span { font-size:18px; color:var(--muted); }
+.searchbox input { width:100%; min-width:0; border:0; outline:0; background:transparent; color:var(--ink); padding:14px 0; font-size:14px; }
+.searchbar select { padding:13px 38px 13px 14px; border:1px solid var(--line); border-radius:14px; background:var(--paper); color:var(--ink); outline:0; }
+.filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:25px; }
+.filter { border:1px solid var(--line); background:var(--paper); color:var(--muted); border-radius:999px; padding:9px 15px; font-size:12px; font-weight:750; }
+.filter.active { background:#174b37; border-color:#174b37; color:#fffef4; }
+.results-note { font-size:12px; color:var(--muted); margin-left:auto; align-self:center; }
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.food-card { border:1px solid var(--line); border-radius:20px; overflow:hidden; background:var(--paper); transition:transform .18s,box-shadow .18s; }
+.food-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+.food-image { height:185px; position:relative; display:grid; place-items:center; overflow:hidden; }
+.food-image:before,.food-image:after { content:""; position:absolute; border-radius:50%; border:1px solid rgba(255,255,255,.36); }
+.food-image:before { width:220px; height:220px; }.food-image:after { width:165px; height:165px; }
+.food-emoji { font-size:86px; filter:drop-shadow(0 12px 8px rgba(35,54,28,.15)); z-index:1; transition:transform .2s; }.food-card:hover .food-emoji { transform:scale(1.08) rotate(-3deg); }
+.bg-sand { background:#eee0c7; }.bg-sage { background:#dce8ce; }.bg-peach { background:#f0d7c3; }.bg-lavender { background:#e2ddec; }.bg-yellow { background:#f2e5b9; }.bg-blue { background:#d5e6df; }
+.food-badge { position:absolute; top:13px; left:13px; z-index:2; border-radius:999px; background:#fffef4; color:#23523a; font-size:10px; font-weight:850; padding:7px 10px; }
+.heart { position:absolute; top:11px; right:11px; width:34px; height:34px; z-index:2; border:0; border-radius:50%; background:rgba(255,254,244,.9); color:#28553b; font-size:18px; }
+.heart.saved { background:#174b37; color:#fff; }
+.food-body { padding:17px; }.food-meta { display:flex; justify-content:space-between; gap:10px; align-items:center; font-size:11px; color:var(--muted); }.shop { display:flex; gap:6px; align-items:center; }.availability { color:#42764a; font-weight:750; white-space:nowrap; }
+.food-body h3 { font-size:17px; letter-spacing:-.4px; margin:12px 0 7px; }.description { color:var(--muted); font-size:12px; line-height:1.5; min-height:36px; margin:0 0 15px; }
+.card-bottom { display:flex; align-items:center; justify-content:space-between; gap:10px; border-top:1px solid var(--line); padding-top:14px; }.price { display:flex; align-items:baseline; gap:7px; }.price strong { font-size:21px; color:var(--forest-deep); letter-spacing:-.7px; }.old-price { font-size:12px; color:var(--muted); text-decoration:line-through; }.save { font-size:10px; color:#47734c; background:var(--lime); padding:5px 7px; border-radius:6px; font-weight:850; }
+.card-btn { padding:10px 13px; font-size:12px; white-space:nowrap; }.card-btn:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+.empty { grid-column:1/-1; text-align:center; padding:50px 20px; border:1px dashed var(--line); border-radius:18px; color:var(--muted); }.empty div { font-size:36px; margin-bottom:12px; }
+.how { background:var(--paper); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }.how-inner { max-width:1180px; margin:auto; padding:60px 28px; }.steps { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin-top:30px; }.step { border:1px solid var(--line); border-radius:18px; padding:23px; background:var(--cream); }.step-num { display:grid; place-items:center; width:39px; height:39px; border-radius:13px; background:var(--lime); font-weight:850; color:var(--forest); }.step h3 { font-size:16px; margin:17px 0 8px; }.step p { font-size:13px; line-height:1.7; color:var(--muted); margin:0; }
+.cta { max-width:1124px; margin:58px auto; padding:0 28px; }.cta-panel { border-radius:24px; background:#174b37; color:#fffef4; display:flex; align-items:center; justify-content:space-between; gap:25px; padding:35px 38px; }.cta-panel h2 { color:#fffef4; font-size:34px; margin:0 0 8px; }.cta-panel p { margin:0; font-size:13px; color:#c7d9c7; line-height:1.6; }.cta-panel .primary { background:#d7edaa; color:#174b37; }
+footer { border-top:1px solid var(--line); padding:25px 28px; color:var(--muted); font-size:12px; }.footer-inner { max-width:1124px; margin:auto; display:flex; align-items:center; justify-content:space-between; gap:15px; }.footer-brand { color:var(--forest); font-size:16px; font-weight:850; }
+.modal-backdrop { position:fixed; inset:0; background:rgba(9,28,18,.52); z-index:10; display:none; align-items:center; justify-content:center; padding:18px; backdrop-filter:blur(4px); }.modal-backdrop.open { display:flex; }.modal { background:var(--paper); color:var(--ink); width:min(520px,100%); max-height:90vh; overflow:auto; border-radius:24px; box-shadow:0 24px 80px rgba(0,0,0,.24); position:relative; }.modal-image { min-height:180px; display:grid; place-items:center; font-size:94px; }.modal-content { padding:25px; }.modal-close { position:absolute; top:13px; right:13px; width:37px; height:37px; border:0; border-radius:50%; background:var(--paper); color:var(--ink); font-size:23px; z-index:2; }.modal h3 { font-family:Georgia,serif; font-size:29px; margin:9px 0; }.modal p { color:var(--muted); font-size:13px; line-height:1.65; }.detail-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:20px 0; }.detail { padding:13px; border-radius:12px; background:var(--cream); }.detail span { display:block; font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.7px; margin-bottom:6px; }.detail strong { font-size:13px; }.modal-actions { display:flex; gap:10px; }.modal-actions button { flex:1; }.confirm-icon { width:62px; height:62px; margin:0 auto 15px; display:grid; place-items:center; border-radius:50%; background:#d7edaa; font-size:30px; }.confirmation { text-align:center; padding:35px 27px 29px; }.confirmation h3 { margin-top:8px; }.reservation-code { display:inline-block; background:var(--cream); border:1px dashed var(--line); padding:11px 16px; border-radius:10px; letter-spacing:2px; font-weight:850; margin:8px 0 20px; }.toast { position:fixed; bottom:22px; left:50%; transform:translate(-50%,20px); opacity:0; pointer-events:none; z-index:20; padding:12px 18px; border-radius:999px; color:white; background:#174b37; font-size:13px; box-shadow:var(--shadow); transition:.2s; }.toast.show { opacity:1; transform:translate(-50%,0); }
+@media(max-width:850px) { .hero { padding:38px 30px; grid-template-columns:1fr .8fr; }.plate { font-size:85px; }.grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.navlinks { gap:15px; }.stats { gap:4px; }.stat { padding:7px; } }
+@media(max-width:620px) { .nav { padding:16px 18px; }.navlinks { display:none; }.hero-wrap { padding:14px 16px 24px; }.hero { grid-template-columns:1fr; padding:30px 24px 20px; border-radius:23px; }.hero-art { min-height:230px; }.art-circle { width:220px; }.plate { font-size:80px; }.float-one { right:2%; }.float-two { left:1%; }.stats { grid-template-columns:1fr; gap:5px; padding-top:15px; }.stat { padding:8px 4px; }.section { padding:30px 16px 45px; }.section-top { align-items:start; flex-direction:column; }.searchbar { flex-wrap:wrap; }.searchbox { flex-basis:100%; }.searchbar select { flex:1; }.filters { gap:7px; }.grid { grid-template-columns:1fr; gap:15px; }.food-image { height:205px; }.steps { grid-template-columns:1fr; }.how-inner { padding:42px 16px; }.cta { margin:38px auto; padding:0 16px; }.cta-panel { align-items:flex-start; flex-direction:column; padding:28px 24px; }.footer-inner { flex-direction:column; align-items:flex-start; }.nav-actions .pill { display:none; } }
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="nav">
+    <a class="brand" href="#home" style="text-decoration:none"><span class="logo">♧</span> EcoBite</a>
+    <nav class="navlinks" aria-label="Main navigation"><a href="#discover">Discover food</a><a href="#how-it-works">How it works</a><a href="#our-impact">Our impact</a></nav>
+    <div class="nav-actions"><button class="pill" id="savedToggle" aria-label="Show saved items">♡ Saved <span id="savedCount">0</span></button><button class="primary" id="navExplore">Find a bite ↗</button></div>
+  </header>
+  <main>
+    <div class="hero-wrap" id="home">
+      <section class="hero">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Good food deserves another chance</div>
+          <h1>Eat well.<br>Waste less.</h1>
+          <p>Your campus is full of good food waiting to be loved. Discover tasty surplus bites at lovely prices — and give good food a second chance.</p>
+          <div class="hero-buttons"><button class="primary" id="heroExplore">Explore surplus food&nbsp; ↗</button><button class="text-btn" id="howBtn">How it works ↓</button></div>
+        </div>
+        <div class="hero-art" aria-label="Illustration of a fresh meal">
+          <div class="art-circle"><div class="plate">🥗</div></div>
+          <div class="floating float-one">🌱 Small choices, big impact</div><div class="floating float-two">♡ A little less waste</div>
+        </div>
+      </section>
+      <div class="stats" id="our-impact">
+        <div class="stat"><div class="stat-icon">🍃</div><div><strong>Less food waste</strong><span>Give good food a second chance</span></div></div>
+        <div class="stat"><div class="stat-icon">🪙</div><div><strong>Student-friendly prices</strong><span>More value in every bite</span></div></div>
+        <div class="stat"><div class="stat-icon">📍</div><div><strong>Right on campus</strong><span>Easy pick-up, close to class</span></div></div>
+      </div>
+    </div>
+    <section class="section" id="discover">
+      <div class="section-top"><div><div class="kicker">Fresh finds, lower prices</div><h2>Today’s good finds</h2><p class="section-sub">Lovely food. Little prices. Available while it lasts.</p></div><div class="results-note" id="resultsNote" aria-live="polite">6 delicious finds</div></div>
+      <div class="searchbar"><label class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="Search pastries, salads, sandwiches…" aria-label="Search food listings"></label><select id="sortSelect" aria-label="Sort food"><option value="featured">Sort: Featured</option><option value="price-low">Price: Low to high</option><option value="discount">Biggest savings</option></select></div>
+      <div class="filters" id="filters" aria-label="Food categories"><button class="filter active" data-category="All">All finds</button><button class="filter" data-category="Bakery">🥐 Bakery</button><button class="filter" data-category="Meals">🍲 Meals</button><button class="filter" data-category="Salads">🥗 Salads</button><button class="filter" data-category="Snacks">🍓 Snacks</button><button class="filter" data-category="Drinks">☕ Drinks</button><span class="results-note" id="filterHint"></span></div>
+      <div class="grid" id="foodGrid" aria-live="polite"></div>
+    </section>
+    <section class="how" id="how-it-works"><div class="how-inner"><div class="kicker">A few clicks, a better campus</div><h2>Good food, made simple.</h2><p class="section-sub">Your next great bite is closer than you think.</p><div class="steps"><article class="step"><div class="step-num">01</div><h3>Find your favourite</h3><p>Browse nearby campus cafés and discover surplus food at a fraction of the usual price.</p></article><article class="step"><div class="step-num">02</div><h3>Save your bite</h3><p>Choose an available item and reserve it in a moment. No payment needed in this demo.</p></article><article class="step"><div class="step-num">03</div><h3>Pick up & feel good</h3><p>Collect your food during the stated time window. Enjoy your meal and help cut food waste.</p></article></div></div></section>
+    <section class="cta"><div class="cta-panel"><div><h2>Your next bite does good.</h2><p>Save money, discover campus favourites and help keep good food out of the bin.</p></div><button class="primary" id="ctaExplore">Find your next bite ↗</button></div></section>
+  </main>
+  <footer><div class="footer-inner"><div class="footer-brand">♧ EcoBite</div><div>Good food. Less waste. More campus community.</div><div>Made for a greener campus 🌱</div></div></footer>
+</div>
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Food details"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const foods = [
+ {id:1,name:'Golden croissant bundle',category:'Bakery',shop:'The Daily Grind Café',emoji:'🥐',bg:'bg-sand',original:4.50,price:1.80,qty:4,pickup:'14:30–16:00',description:'Three buttery, flaky croissants from this morning’s bake. Perfect for sharing, or not.',tag:'Popular pick'},
+ {id:2,name:'Green goddess salad',category:'Salads',shop:'Campus Kitchen',emoji:'🥗',bg:'bg-sage',original:7.50,price:3.00,qty:3,pickup:'13:00–15:30',description:'A fresh mix of leafy greens, crunchy cucumber, avocado and a zingy house dressing.',tag:'Fresh today'},
+ {id:3,name:'Roasted veggie focaccia',category:'Meals',shop:'Olive & Thyme',emoji:'🥪',bg:'bg-peach',original:6.00,price:2.50,qty:2,pickup:'15:00–17:00',description:'Soft rosemary focaccia layered with roasted seasonal vegetables and creamy hummus.',tag:'Plant-based'},
+ {id:4,name:'Berry yoghurt pot',category:'Snacks',shop:'The Daily Grind Café',emoji:'🍓',bg:'bg-lavender',original:3.80,price:1.50,qty:5,pickup:'14:00–16:30',description:'Creamy yoghurt topped with strawberries, blueberries and a little oat crunch.',tag:'Student fave'},
+ {id:5,name:'Hearty lentil soup',category:'Meals',shop:'Campus Kitchen',emoji:'🍲',bg:'bg-yellow',original:5.50,price:2.25,qty:2,pickup:'12:30–14:30',description:'A warming bowl of slow-cooked lentils, carrots and herbs. Bread included.',tag:'Comfort food'},
+ {id:6,name:'Iced oat latte',category:'Drinks',shop:'The Daily Grind Café',emoji:'🧋',bg:'bg-blue',original:4.20,price:2.00,qty:6,pickup:'14:00–17:00',description:'A smooth double-shot espresso over oat milk and ice. Made fresh when you collect.',tag:'Dairy-free'}
+];
+let category='All', search='', savedOnly=false, saved=new Set(), reservations=new Map(), selectedId=null;
+const $=id=>document.getElementById(id);
+const money=n=>'€'+n.toFixed(2);
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function getFiltered(){let list=foods.filter(f=>(category==='All'||f.category===category)&&(!savedOnly||saved.has(f.id))&&(`${f.name} ${f.shop} ${f.category} ${f.description}`.toLowerCase().includes(search.toLowerCase())));const sort=$('sortSelect').value;if(sort==='price-low')list.sort((a,b)=>a.price-b.price);if(sort==='discount')list.sort((a,b)=>(b.original-b.price)-(a.original-a.price));return list;}
+function render(){const list=getFiltered();$('resultsNote').textContent=`${list.length} ${list.length===1?'delicious find':'delicious finds'}`;$('savedCount').textContent=saved.size;$('savedToggle').innerHTML=`${savedOnly?'♥':'♡'} Saved <span id="savedCount">${saved.size}</span>`;$('filterHint').textContent=savedOnly?'Showing saved items':'';const grid=$('foodGrid');if(!list.length){grid.innerHTML=`<div class="empty"><div>${savedOnly?'♡':'🍃'}</div><strong>${savedOnly?'No saved bites just yet':'No bites found'}</strong><p>${savedOnly?'Tap the heart on a food card to save it for later.':'Try another search or category — there may be more tasty finds.'}</p><button class="pill" id="resetFilters">Show all food</button></div>`;$('resetFilters').onclick=()=>{category='All';search='';savedOnly=false;$('searchInput').value='';document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b.dataset.category==='All'));render();};return;}
+grid.innerHTML=list.map(f=>{const reservedCount=reservations.get(f.id)||0,left=f.qty-reservedCount,discount=Math.round((1-f.price/f.original)*100);return `<article class="food-card"><div class="food-image ${f.bg}"><span class="food-badge">${escapeHTML(f.tag)}</span><button class="heart ${saved.has(f.id)?'saved':''}" data-save="${f.id}" aria-label="${saved.has(f.id)?'Remove from saved':'Save'} ${escapeHTML(f.name)}">${saved.has(f.id)?'♥':'♡'}</button><span class="food-emoji" aria-hidden="true">${f.emoji}</span></div><div class="food-body"><div class="food-meta"><span class="shop">⌖ ${escapeHTML(f.shop)}</span><span class="availability">${left>0?`${left} left`:'Sold out'}</span></div><h3>${escapeHTML(f.name)}</h3><p class="description">${escapeHTML(f.description)}</p><div class="card-bottom"><div><div class="price"><strong>${money(f.price)}</strong><span class="old-price">${money(f.original)}</span></div><div style="margin-top:7px"><span class="save">−${discount}%</span></div></div><button class="primary card-btn" data-detail="${f.id}" ${left<=0?'disabled':''}>${left<=0?'Sold out':'View & reserve'}</button></div></div></article>`;}).join('');grid.querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',()=>openDetail(Number(b.dataset.detail))));grid.querySelectorAll('[data-save]').forEach(b=>b.addEventListener('click',()=>{const id=Number(b.dataset.save);saved.has(id)?saved.delete(id):saved.add(id);render();}));}
+function openDetail(id){const f=foods.find(x=>x.id===id);if(!f)return;selectedId=id;const reservedCount=reservations.get(id)||0,left=f.qty-reservedCount;$('modal').innerHTML=`<button class="modal-close" id="closeModal" aria-label="Close">×</button><div class="modal-image ${f.bg}">${f.emoji}</div><div class="modal-content"><div class="kicker">${escapeHTML(f.category)} · ${escapeHTML(f.tag)}</div><h3>${escapeHTML(f.name)}</h3><div class="food-meta"><span>⌖ ${escapeHTML(f.shop)}</span><span class="availability">${left>0?`${left} available`:'Sold out'}</span></div><p>${escapeHTML(f.description)} Surplus quantities are limited, so reserve yours before it’s gone.</p><div class="detail-list"><div class="detail"><span>Your price</span><strong>${money(f.price)} <span style="text-decoration:line-through;color:var(--muted);font-weight:400">${money(f.original)}</span></strong></div><div class="detail"><span>Collection window</span><strong>Today, ${f.pickup}</strong></div><div class="detail"><span>Collection point</span><strong>${escapeHTML(f.shop)}</strong></div><div class="detail"><span>You save</span><strong>${money(f.original-f.price)} (${Math.round((1-f.price/f.original)*100)}%)</strong></div></div><div class="modal-actions"><button class="pill" id="saveDetail">${saved.has(id)?'♥ Saved':'♡ Save for later'}</button><button class="primary" id="reserveBtn" ${left<=0?'disabled':''}>${left<=0?'Sold out':'Reserve one · '+money(f.price)}</button></div><p style="font-size:11px;margin-bottom:0">Demo only: no payment is taken. Please collect within the time shown.</p></div>`;$('modalBackdrop').classList.add('open');$('closeModal').onclick=closeModal;$('saveDetail').onclick=()=>{saved.has(id)?saved.delete(id):saved.add(id);render();openDetail(id);};$('reserveBtn').onclick=()=>confirmReservation(id);}
+function closeModal(){$('modalBackdrop').classList.remove('open');selectedId=null;}
+function confirmReservation(id){const f=foods.find(x=>x.id===id);if(!f)return;const reservedCount=reservations.get(id)||0;if(reservedCount>=f.qty){showToast('Sorry, this item is sold out.');openDetail(id);return;}reservations.set(id,reservedCount+1);const code='EB-'+String(Math.floor(100000+Math.random()*900000));$('modal').innerHTML=`<div class="confirmation"><div class="confirm-icon">✓</div><div class="kicker">One less bite wasted</div><h3>Your bite is reserved!</h3><p><strong>${escapeHTML(f.name)}</strong> is set aside for you. Show your reservation code when you collect it.</p><div class="reservation-code">${code}</div><div class="detail" style="text-align:left;margin-bottom:18px"><span>Collect from</span><strong>${escapeHTML(f.shop)}</strong><p style="margin:7px 0 0">Today · ${f.pickup}</p><p style="margin:7px 0 0">${f.qty-(reservedCount+1)} remaining in this demo listing</p></div><button class="primary" id="doneBtn" style="width:100%">Lovely, got it ✓</button><p style="font-size:11px">This reservation is simulated for the prototype. No payment was taken.</p></div>`;$('doneBtn').onclick=()=>{closeModal();render();showToast('Reservation confirmed — enjoy your bite!');};render();}
+let toastTimer;function showToast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2500);}
+function explore(){savedOnly=false;$('discover').scrollIntoView({behavior:'smooth'});render();}
+$('searchInput').addEventListener('input',e=>{search=e.target.value;render();});$('sortSelect').addEventListener('change',render);$('filters').querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{category=b.dataset.category;savedOnly=false;$('filters').querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x===b));render();}));$('savedToggle').addEventListener('click',()=>{savedOnly=!savedOnly;category='All';$('filters').querySelectorAll('.filter').forEach(x=>x.classList.toggle('active',x.dataset.category==='All'));render();$('discover').scrollIntoView({behavior:'smooth'});});['navExplore','heroExplore','ctaExplore'].forEach(id=>$(id).addEventListener('click',explore));$('howBtn').addEventListener('click',()=>$('how-it-works').scrollIntoView({behavior:'smooth'}));$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});render();
+</script>
+</body>
+</html>
